@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHelp Żywiec - Pomoc IT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-card: #141b3d;
+            --accent: #00ff88;
+            --accent-dim: #00cc6a;
+            --text: #e4e4e7;
+            --text-dim: #a1a1aa;
+            --border: #2d3561;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            border-bottom: 2px solid var(--border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 14, 39, 0.8);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            display: inline-block;
+        }
+
+        .logo::before {
+            content: '> ';
+            color: var(--text-dim);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--accent), #00d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero .location {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero .location::before {
+            content: '📍 ';
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 20px auto 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .service-card p {
+            color: var(--text-dim);
+            font-size: 15px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .pricing-info {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .price-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 30px 0;
+            display: block;
+        }
+
+        .price-details {
+            color: var(--text-dim);
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .contact-method {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-method h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .contact-method p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .contact-placeholder {
+            color: var(--text-dim);
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid var(--border);
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .contact-box {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">TechHelp.local</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="location">Żywiec i okolice</div>
+            <h1>Pomoc IT<br>dla Twojego PC</h1>
+            <p class="subtitle">$ sudo fix-computer --fast --reliable</p>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Usługi</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🪟</span>
+                    <h3>Instalacja systemów</h3>
+                    <p>Windows, Linux (Ubuntu, Mint, Garuda) - czysty system bez bloatware</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🦠</span>
+                    <h3>Czyszczenie z wirusów</h3>
+                    <p>Usuwanie malware, adware i niepotrzebnych programów. Twój komputer jak nowy</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <h3>Przyspieszanie PC</h3>
+                    <p>Optymalizacja systemu, czyszczenie dysku, usuwanie zbędnych procesów</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🔧</span>
+                    <h3>Upgrade sprzętu</h3>
+                    <p>Instalacja RAM, SSD, wymiana dysków. Doradztwo przy zakupach</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">⚙️</span>
+                    <h3>Konfiguracja</h3>
+                    <p>Ustawienie nowego PC, instalacja programów, backup danych</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">💡</span>
+                    <h3>Pomoc & Szkolenie</h3>
+                    <p>Nauka obsługi, rozwiązywanie problemów, wsparcie techniczne</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <h2 class="section-title">Cennik</h2>
+            <div class="pricing-info">
+                <span class="price-tag">od 50 zł</span>
+                <p class="price-details">
+                    Standardowe usługi: 50-75 zł<br>
+                    Instalacja systemu: 50 zł<br>
+                    Czyszczenie + optymalizacja: 60 zł<br>
+                    Upgrade sprzętu: 50 zł + części<br>
+                    <br>
+                    Cena ostateczna ustalana przed rozpoczęciem pracy
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">Kontakt</h2>
+            <div class="contact-box">
+                <p style="margin-bottom: 30px; font-size: 18px;">Masz problem z komputerem? Skontaktuj się!</p>
+                
+                <div class="contact-method">
+                    <h3>📞 Telefon</h3>
+                    <p class="contact-placeholder">[Dodaj numer telefonu rodzica]</p>
+                </div>
+
+                <div class="contact-method">
+                    <h3>✉️ Email</h3>
+                    <p class="contact-placeholder">[Dodaj adres email]</p>
+                </div>
+
+                <p style="margin-top: 30px; color: var(--text-dim); font-size: 14px;">
+                    Obsługuję Żywiec i najbliższą okolicę<br>
+                    Czas reakcji: zazwyczaj tego samego dnia
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 TechHelp Żywiec • Lokalna pomoc IT</p>
+            <p style="margin-top: 10px; font-size: 12px;">Wykonane z pasją do technologii 🚀</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
